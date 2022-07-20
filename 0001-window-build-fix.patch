@@ -1,0 +1,126 @@
+From 29f8bebe6dc332ce7c6e78bb07345e04508956b7 Mon Sep 17 00:00:00 2001
+From: pedoc <pedoc@qq.com>
+Date: Wed, 20 Jul 2022 11:44:50 +0800
+Subject: [PATCH] window build fix
+
+---
+ Configure           |  2 +-
+ crypto/evp/names2.c | 63 +++++++++++++++++++++++++++++++++++----------
+ test/build.info     |  2 +-
+ 3 files changed, 52 insertions(+), 15 deletions(-)
+
+diff --git a/Configure b/Configure
+index 813cb77a..2ef6b18b 100755
+--- a/Configure
++++ b/Configure
+@@ -15,7 +15,7 @@ use strict;
+ use File::Basename;
+ use File::Spec::Functions qw/:DEFAULT abs2rel rel2abs/;
+ use File::Path qw/mkpath/;
+-use if $^O ne "VMS", 'File::Glob' => qw/glob/;
++use if $^O ne "VMS", 'File::Glob' => qw/:glob/;
+ 
+ # see INSTALL for instructions.
+ 
+diff --git a/crypto/evp/names2.c b/crypto/evp/names2.c
+index d0a3fbfd..ad329b31 100644
+--- a/crypto/evp/names2.c
++++ b/crypto/evp/names2.c
+@@ -1,12 +1,11 @@
+ /*
+- * Copyright 1995-2016 The OpenSSL Project Authors. All Rights Reserved.
+- *
+- * Licensed under the OpenSSL license (the "License").  You may not use
+- * this file except in compliance with the License.  You can obtain a copy
+- * in the file LICENSE in the source distribution or at
+- * https://www.openssl.org/source/license.html
+- */
+ 
++Copyright 1995-2016 The OpenSSL Project Authors. All Rights Reserved.
++Licensed under the OpenSSL license (the "License"). You may not use
++this file except in compliance with the License. You can obtain a copy
++in the file LICENSE in the source distribution or at
++https://www.openssl.org/source/license.html
++*/
+ #include <stdio.h>
+ #include "internal/cryptlib.h"
+ #include <openssl/evp.h>
+@@ -14,13 +13,19 @@
+ #include <openssl/x509.h>
+ #include "internal/evp_int.h"
+ 
++const EVP_CIPHER *EVP_get_default_cipher(void)
++{
++	return NULL;
++}
++
+ /*
+- * use MD5 as default:
+- *	X509_REQ_to_X509		x509_r2x.c
+- *	X509_issuer_and_serial_hash	x509_cmp.c
+- *	X509_NAME_hash_old		x509_cmp.c
+- *	PEM_ASN1_write_bio		pem_lib.c
+- */
++
++use MD5 as default:
++X509_REQ_to_X509 x509_r2x.c
++X509_issuer_and_serial_hash x509_cmp.c
++X509_NAME_hash_old x509_cmp.c
++PEM_ASN1_write_bio pem_lib.c
++*/
+ const EVP_MD *EVP_get_default_digest(void)
+ {
+ #if !defined(OPENSSL_NO_MD5)
+@@ -35,3 +40,35 @@ const EVP_MD *EVP_get_default_digest(void)
+ 	return NULL;
+ #endif
+ }
++static void cipher_name_len(const EVP_CIPHER *cipher, const char *from,
++							const char *to, void *x)
++{
++	*((int *)x) += strlen(EVP_CIPHER_name(cipher));
++}
++
++static void cipher_name(const EVP_CIPHER *cipher, const char *from,
++						const char *to, void *x)
++{
++	strcat((char *)x, EVP_CIPHER_name(cipher));
++}
++
++char *EVP_get_ciphernames(int aliases)
++{
++	char *ret = NULL;
++	int len = 0;
++	EVP_CIPHER_do_all_sorted(cipher_name_len, &len);
++
++	ret = OPENSSL_zalloc(len);
++	if (!ret)
++	{
++		return NULL;
++	}
++
++	EVP_CIPHER_do_all_sorted(cipher_name, ret);
++	return ret;
++}
++
++char *EVP_get_digestnames(int aliases)
++{
++	return "sm3:sha1:sha256";
++}
+\ No newline at end of file
+diff --git a/test/build.info b/test/build.info
+index 0f9739a0..fc907faa 100644
+--- a/test/build.info
++++ b/test/build.info
+@@ -336,7 +336,7 @@ ENDIF
+ {-
+    use File::Spec::Functions;
+    use File::Basename;
+-   use if $^O ne "VMS", 'File::Glob' => qw/glob/;
++   use if $^O ne "VMS", 'File::Glob' => qw/:glob/;
+ 
+    my @nogo_headers = ( "asn1_mac.h",
+                         "__decc_include_prologue.h",
+-- 
+2.37.1.windows.1
+
