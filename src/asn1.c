@@ -21,7 +21,7 @@
 #include <gmssl/asn1.h>
 #include <gmssl/error.h>
 #include <gmssl/endian.h>
-
+#include <gmssl/win_support.h>
 
 /*
 

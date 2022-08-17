@@ -11,7 +11,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#ifdef _MSC_VER
+#include <gmssl/win_support.h>
+#else
 #include <dlfcn.h>
+#endif
+
+
 #include "sdf_int.h"
 
 #define SDFerr(a,b)

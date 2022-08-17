@@ -11,7 +11,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#ifndef _MSC_VER
 #include <unistd.h>
+#endif
+
 #include <time.h>
 #include <gmssl/tls.h>
 #include <gmssl/x509.h>
@@ -1136,34 +1140,6 @@ int tls_record_print(FILE *fp, const uint8_t *record,  size_t recordlen, int for
 
 	fprintf(fp, "\n");
 	return 1;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 int tls_secrets_print(FILE *fp,

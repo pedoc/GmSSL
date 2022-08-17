@@ -13,30 +13,31 @@
 
 #include <string.h>
 #include <stdint.h>
+#include <gmssl/win_support.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/*
-SM3 Public API
+    /*
+    SM3 Public API
 
-	SM3_DIGEST_SIZE
-	SM3_HMAC_SIZE
+        SM3_DIGEST_SIZE
+        SM3_HMAC_SIZE
 
-	SM3_CTX
-	sm3_init
-	sm3_update
-	sm3_finish
+        SM3_CTX
+        sm3_init
+        sm3_update
+        sm3_finish
 
-	SM3_HMAC_CTX
-	sm3_hmac_init
-	sm3_hmac_update
-	sm3_hmac_finish
+        SM3_HMAC_CTX
+        sm3_hmac_init
+        sm3_hmac_update
+        sm3_hmac_finish
 
-	sm3_digest
-	sm3_hmac
-*/
+        sm3_digest
+        sm3_hmac
+    */
 
 #define SM3_IS_BIG_ENDIAN	1
 
@@ -46,40 +47,40 @@ SM3 Public API
 #define SM3_HMAC_SIZE		(SM3_DIGEST_SIZE)
 
 
-typedef struct {
-	uint32_t digest[SM3_STATE_WORDS];
-	uint64_t nblocks;
-	uint8_t block[SM3_BLOCK_SIZE];
-	size_t num;
-} SM3_CTX;
+    typedef struct {
+        uint32_t digest[SM3_STATE_WORDS];
+        uint64_t nblocks;
+        uint8_t block[SM3_BLOCK_SIZE];
+        size_t num;
+    } SM3_CTX;
 
-void sm3_init(SM3_CTX *ctx);
-void sm3_update(SM3_CTX *ctx, const uint8_t *data, size_t datalen);
-void sm3_finish(SM3_CTX *ctx, uint8_t dgst[SM3_DIGEST_SIZE]);
-void sm3_digest(const uint8_t *data, size_t datalen, uint8_t dgst[SM3_DIGEST_SIZE]);
-
-
-typedef struct {
-	SM3_CTX sm3_ctx;
-	unsigned char key[SM3_BLOCK_SIZE];
-} SM3_HMAC_CTX;
-
-void sm3_hmac_init(SM3_HMAC_CTX *ctx, const uint8_t *key, size_t keylen);
-void sm3_hmac_update(SM3_HMAC_CTX *ctx, const uint8_t *data, size_t datalen);
-void sm3_hmac_finish(SM3_HMAC_CTX *ctx, uint8_t mac[SM3_HMAC_SIZE]);
-void sm3_hmac(const uint8_t *key, size_t keylen,
-	const uint8_t *data, size_t datalen,
-	uint8_t mac[SM3_HMAC_SIZE]);
+    EXPORT    void sm3_init(SM3_CTX* ctx);
+    EXPORT    void sm3_update(SM3_CTX* ctx, const uint8_t* data, size_t datalen);
+    EXPORT   void sm3_finish(SM3_CTX* ctx, uint8_t dgst[SM3_DIGEST_SIZE]);
+    EXPORT    void sm3_digest(const uint8_t* data, size_t datalen, uint8_t dgst[SM3_DIGEST_SIZE]);
 
 
-typedef struct {
-	SM3_CTX sm3_ctx;
-	size_t outlen;
-} SM3_KDF_CTX;
+    typedef struct {
+        SM3_CTX sm3_ctx;
+        unsigned char key[SM3_BLOCK_SIZE];
+    } SM3_HMAC_CTX;
 
-void sm3_kdf_init(SM3_KDF_CTX *ctx, size_t outlen);
-void sm3_kdf_update(SM3_KDF_CTX *ctx, const uint8_t *data, size_t datalen);
-void sm3_kdf_finish(SM3_KDF_CTX *ctx, uint8_t *out);
+    EXPORT void  sm3_hmac_init(SM3_HMAC_CTX* ctx, const uint8_t* key, size_t keylen);
+    EXPORT void  sm3_hmac_update(SM3_HMAC_CTX* ctx, const uint8_t* data, size_t datalen);
+    EXPORT void  sm3_hmac_finish(SM3_HMAC_CTX* ctx, uint8_t mac[SM3_HMAC_SIZE]);
+    EXPORT void   sm3_hmac(const uint8_t* key, size_t keylen,
+        const uint8_t* data, size_t datalen,
+        uint8_t mac[SM3_HMAC_SIZE]);
+
+
+    typedef struct {
+        SM3_CTX sm3_ctx;
+        size_t outlen;
+    } SM3_KDF_CTX;
+
+    EXPORT   void sm3_kdf_init(SM3_KDF_CTX* ctx, size_t outlen);
+    EXPORT   void sm3_kdf_update(SM3_KDF_CTX* ctx, const uint8_t* data, size_t datalen);
+    EXPORT   void sm3_kdf_finish(SM3_KDF_CTX* ctx, uint8_t* out);
 
 
 #ifdef __cplusplus

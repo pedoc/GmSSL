@@ -24,6 +24,7 @@
 #include <gmssl/x509_ext.h>
 #include <gmssl/x509.h>
 #include <gmssl/error.h>
+#include <gmssl/win_support.h>
 
 
 const char *x509_version_name(int version)

@@ -11,7 +11,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
+#ifdef _MSC_VER
+#include <gmssl/win_support.h>
+#else
 #include <dlfcn.h>
+#endif
+
 #include "skf.h"
 #include "skf_ext.h"
 #include "skf_int.h"

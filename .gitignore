@@ -52,7 +52,6 @@
 /test/fips_ecdsavs
 /test/fips_rngvs
 /test/fips_test_suite
-/test/ssltest_old
 /test/x509aux
 /test/v3ext
 
@@ -68,7 +67,6 @@
 /test/*.dd
 /test/*.dp
 /test/*.pd
-/test/*.p
 
 /util/shlib_wrap.sh
 
@@ -101,7 +99,6 @@
 /out32dll
 /out32dll.dbg
 /inc32
-/MINFO
 /ms/.rnd
 /ms/bcb.mak
 /ms/libeay32.def
@@ -213,4 +210,4 @@ include/openssl/srp.h
 
 /rust
 /python
-/build
+/.vscode/

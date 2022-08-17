@@ -19,7 +19,7 @@ int pem_write(FILE *fp, const char *name, const uint8_t *data, size_t datalen)
 {
 	int ret = 0;
 	BASE64_CTX ctx;
-	uint8_t b64[datalen * 2];
+	uint8_t* b64=malloc(datalen * 2);
 	int len;
 
 	base64_encode_init(&ctx);
@@ -29,6 +29,7 @@ int pem_write(FILE *fp, const char *name, const uint8_t *data, size_t datalen)
 	ret += fprintf(fp, "-----BEGIN %s-----\n", name);
 	ret += fprintf(fp, "%s", (char *)b64);
 	ret += fprintf(fp, "-----END %s-----\n", name);
+    free(b64);
 	//return ret;
 	return 1;
 }

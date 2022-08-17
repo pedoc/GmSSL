@@ -28,7 +28,8 @@
 int x509_exts_add_sequence(uint8_t *exts, size_t *extslen, size_t maxlen,
 	int oid, int critical, const uint8_t *d, size_t dlen)
 {
-	uint8_t val[32 + dlen];
+	uint8_t* val=malloc(32 + dlen);
+    __try{
 	uint8_t *p = val;
 	size_t curlen = *extslen;
 	size_t vlen = 0;
@@ -42,6 +43,11 @@ int x509_exts_add_sequence(uint8_t *exts, size_t *extslen, size_t maxlen,
 		return -1;
 	}
 	return 1;
+    }
+    __finally
+    {
+        free(val);
+    }
 }
 
 int x509_exts_add_authority_key_identifier(uint8_t *exts, size_t *extslen, size_t maxlen,

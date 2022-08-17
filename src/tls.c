@@ -14,12 +14,18 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
+
+#ifndef _MSC_VER
 #include <unistd.h>
-#include <fcntl.h>
-#include <sys/types.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#else
+#include <gmssl/win_support.h>
+#endif
+
+#include <fcntl.h>
+#include <sys/types.h>
 #include <gmssl/rand.h>
 #include <gmssl/x509.h>
 #include <gmssl/error.h>
@@ -2268,19 +2274,19 @@ void tls_cleanup(TLS_CONNECT *conn)
 
 int tls_set_socket(TLS_CONNECT *conn, int sock)
 {
-	int opts;
-
-	if ((opts = fcntl(sock, F_GETFL)) < 0) {
-		error_print();
-		perror("tls_set_socket");
-		return -1;
-	}
-	opts &= ~O_NONBLOCK;
-	if (fcntl(sock, F_SETFL, opts) < 0) {
-		error_print();
-		return -1;
-	}
-	conn->sock = sock;
+	// int opts;
+	//
+	// if ((opts = fcntl(sock, F_GETFL)) < 0) {
+	// 	error_print();
+	// 	perror("tls_set_socket");
+	// 	return -1;
+	// }
+	// opts &= ~O_NONBLOCK;
+	// if (fcntl(sock, F_SETFL, opts) < 0) {
+	// 	error_print();
+	// 	return -1;
+	// }
+	// conn->sock = sock;
 	return 1;
 }
 

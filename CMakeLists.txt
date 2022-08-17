@@ -82,12 +82,13 @@ add_library(
 	src/skf/skf_ext.c
 	src/skf/skf_prn.c
 	src/skf/skf_wisec.c
-	src/tls.c
-	src/tls_ext.c
-	src/tls_trace.c
-	src/tlcp.c
-	src/tls12.c
-	src/tls13.c
+	#src/tls.c
+	#src/tls_ext.c
+	#src/tls_trace.c
+	#src/tlcp.c
+	#src/tls12.c
+	#src/tls13.c
+    src/win_support.c
 )
 
 target_link_libraries(gmssl dl)
@@ -136,12 +137,12 @@ add_executable(
 	tools/cmsparse.c
 	tools/sdfutil.c
 	tools/skfutil.c
-	tools/tlcp_client.c
-	tools/tlcp_server.c
-	tools/tls12_client.c
-	tools/tls12_server.c
-	tools/tls13_client.c
-	tools/tls13_server.c
+	#tools/tlcp_client.c
+	#tools/tlcp_server.c
+	#tools/tls12_client.c
+	#tools/tls12_server.c
+	#tools/tls13_client.c
+	#tools/tls13_server.c
 )
 
 target_link_libraries (gmssl-bin LINK_PUBLIC gmssl)
@@ -186,8 +187,8 @@ add_test(NAME x509_ext		COMMAND x509_exttest)
 add_test(NAME x509_req		COMMAND x509_reqtest)
 add_test(NAME x509_crl		COMMAND x509_crltest)
 add_test(NAME cms		COMMAND cmstest)
-add_test(NAME tls		COMMAND tlstest)
-add_test(NAME tls13		COMMAND tls13test)
+#add_test(NAME tls		COMMAND tlstest)
+#add_test(NAME tls13		COMMAND tls13test)
 
 
 add_executable(sm4test tests/sm4test.c)
@@ -264,10 +265,10 @@ add_executable(x509_crltest tests/x509_crltest.c)
 target_link_libraries (x509_crltest LINK_PUBLIC gmssl)
 add_executable(cmstest tests/cmstest.c)
 target_link_libraries (cmstest LINK_PUBLIC gmssl)
-add_executable(tlstest tests/tlstest.c)
-target_link_libraries (tlstest LINK_PUBLIC gmssl)
-add_executable(tls13test tests/tls13test.c)
-target_link_libraries (tls13test LINK_PUBLIC gmssl)
+#add_executable(tlstest tests/tlstest.c)
+#target_link_libraries (tlstest LINK_PUBLIC gmssl)
+#add_executable(tls13test tests/tls13test.c)
+#target_link_libraries (tls13test LINK_PUBLIC gmssl)
 
 
 INSTALL(TARGETS gmssl ARCHIVE DESTINATION lib  LIBRARY DESTINATION lib)
