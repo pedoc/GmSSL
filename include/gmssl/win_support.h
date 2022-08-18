@@ -10,7 +10,7 @@
 #include  <string.h>
 #include  <time.h>
 
-#define EXPORT  __declspec( dllimport )
+#define EXPORT  __declspec( dllexport )
 
 #define RTLD_LAZY -1
 #define dlopen(path,opt) LoadLibrary(path)

@@ -191,7 +191,12 @@ add_test(NAME cms		COMMAND cmstest)
 #add_test(NAME tls13		COMMAND tls13test)
 
 
-add_executable(sm4test tests/sm4test.c)
+add_executable(
+sm4test 
+src/hex.c
+src/rand.c
+tests/sm4test.c
+)
 target_link_libraries (sm4test LINK_PUBLIC gmssl)
 add_executable(
     sm3test
@@ -199,10 +204,75 @@ add_executable(
     tests/sm3test.c
 )
 target_link_libraries (sm3test LINK_PUBLIC gmssl)
-add_executable(sm2test tests/sm2test.c)
+add_executable(
+sm2test
+src/version.c
+src/debug.c
+src/asn1.c
+src/win_support.c
+src/base64.c
+src/rand.c
+src/x509_alg.c
+src/pkcs8.c
+src/hmac.c
+src/hex.c
+src/sha1.c
+src/sha256.c
+src/sha512.c
+src/digest.c
+src/pbkdf2.c
+src/ec.c
+src/pem.c
+src/gcm.c
+src/gf128.c
+src/block_cipher.c
+src/aes.c
+src/aes_modes.c
+#src/sm4_common.c
+#src/sm4_enc.c
+#src/sm4_modes.c
+#src/sm4_setkey.c
+#src/sm3.c
+#src/sm3_hmac.c
+#src/sm3_kdf.c
+#src/sm2_lib.c
+src/sm2_alg.c
+src/sm2_key.c
+tests/sm2test.c
+)
 target_link_libraries (sm2test LINK_PUBLIC gmssl)
-add_executable(sm9test tests/sm9test.c)
+
+add_executable(
+sm9test
+src/version.c
+src/debug.c
+src/asn1.c
+src/win_support.c
+src/base64.c
+src/rand.c
+src/x509_alg.c
+src/pkcs8.c
+src/hmac.c
+src/hex.c
+src/sha1.c
+src/sha256.c
+src/sha512.c
+src/digest.c
+src/pbkdf2.c
+src/ec.c
+src/pem.c
+src/gcm.c
+src/gf128.c
+src/block_cipher.c
+src/aes.c
+src/aes_modes.c
+src/sm9_alg.c
+src/sm2_alg.c
+src/sm2_key.c
+tests/sm9test.c
+)
 target_link_libraries (sm9test LINK_PUBLIC gmssl)
+
 add_executable(zuctest tests/zuctest.c)
 target_link_libraries (zuctest LINK_PUBLIC gmssl)
 add_executable(aestest tests/aestest.c)

@@ -16,11 +16,11 @@
 #include <gmssl/rand.h>
 
 
-static int sm9_bn_equ_hex(const sm9_bn_t a, const char *hex)
+static int sm9_bn_equ_hex(const sm9_bn_t a, const char* hex)
 {
-	sm9_bn_t b;
-	sm9_bn_from_hex(b, hex);
-	return (sm9_bn_cmp(a, b) == 0);
+    sm9_bn_t b;
+    sm9_bn_from_hex(b, hex);
+    return (sm9_bn_cmp(a, b) == 0);
 }
 
 
@@ -38,35 +38,35 @@ static int sm9_bn_equ_hex(const sm9_bn_t a, const char *hex)
 #define hex_fp_inv 	"7d404b0027a93e3fa8f8bc7ee367a96814c42a3b69feb1845093406948a34753"
 
 int test_sm9_fp() {
-	sm9_fp_t x;
-	sm9_fp_t y;
-	sm9_fp_t r;
-	int j = 1;
+    sm9_fp_t x;
+    sm9_fp_t y;
+    sm9_fp_t r;
+    int j = 1;
 
-	sm9_bn_copy(x, SM9_P2->X[1]);
-	sm9_bn_copy(y, SM9_Ppubs->Y[0]);
+    sm9_bn_copy(x, SM9_P2->X[1]);
+    sm9_bn_copy(y, SM9_Ppubs->Y[0]);
 
-	sm9_fp_t iv = {0x87654321, 0x0fedcba9, 0x9abcdef0, 0x12345678, 0x87654321, 0x0fedcba9, 0x9abcdef0, 0x12345678};
-	sm9_bn_from_hex(r, hex_iv); if (sm9_bn_cmp(r, iv) != 0) goto err; ++j;
+    sm9_fp_t iv = { 0x87654321, 0x0fedcba9, 0x9abcdef0, 0x12345678, 0x87654321, 0x0fedcba9, 0x9abcdef0, 0x12345678 };
+    sm9_bn_from_hex(r, hex_iv); if (sm9_bn_cmp(r, iv) != 0) goto err; ++j;
 
-	sm9_fp_add(r, x, y); if (!sm9_bn_equ_hex(r, hex_fp_add)) goto err; ++j;
-	sm9_fp_sub(r, x, y); if (!sm9_bn_equ_hex(r, hex_fp_sub)) goto err; ++j;
-	sm9_fp_sub(r, y, x); if (!sm9_bn_equ_hex(r, hex_fp_nsub)) goto err; ++j;
-	sm9_fp_dbl(r, x);    if (!sm9_bn_equ_hex(r, hex_fp_dbl)) goto err; ++j;
-	sm9_fp_tri(r, x);    if (!sm9_bn_equ_hex(r, hex_fp_tri)) goto err; ++j;
-	sm9_fp_div2(r, x);   if (!sm9_bn_equ_hex(r, hex_fp_div2)) goto err; ++j;
-	sm9_fp_neg(r, x);    if (!sm9_bn_equ_hex(r, hex_fp_neg)) goto err; ++j;
-	sm9_fp_mul(r, x, y); if (!sm9_bn_equ_hex(r, hex_fp_mul)) goto err; ++j;
-	sm9_fp_sqr(r, x);    if (!sm9_bn_equ_hex(r, hex_fp_sqr)) goto err; ++j;
-	sm9_fp_pow(r, x, y); if (!sm9_bn_equ_hex(r, hex_fp_pow)) goto err; ++j;
-	sm9_fp_inv(r, x);    if (!sm9_bn_equ_hex(r, hex_fp_inv)) goto err; ++j;
+    sm9_fp_add(r, x, y); if (!sm9_bn_equ_hex(r, hex_fp_add)) goto err; ++j;
+    sm9_fp_sub(r, x, y); if (!sm9_bn_equ_hex(r, hex_fp_sub)) goto err; ++j;
+    sm9_fp_sub(r, y, x); if (!sm9_bn_equ_hex(r, hex_fp_nsub)) goto err; ++j;
+    sm9_fp_dbl(r, x);    if (!sm9_bn_equ_hex(r, hex_fp_dbl)) goto err; ++j;
+    sm9_fp_tri(r, x);    if (!sm9_bn_equ_hex(r, hex_fp_tri)) goto err; ++j;
+    sm9_fp_div2(r, x);   if (!sm9_bn_equ_hex(r, hex_fp_div2)) goto err; ++j;
+    sm9_fp_neg(r, x);    if (!sm9_bn_equ_hex(r, hex_fp_neg)) goto err; ++j;
+    sm9_fp_mul(r, x, y); if (!sm9_bn_equ_hex(r, hex_fp_mul)) goto err; ++j;
+    sm9_fp_sqr(r, x);    if (!sm9_bn_equ_hex(r, hex_fp_sqr)) goto err; ++j;
+    sm9_fp_pow(r, x, y); if (!sm9_bn_equ_hex(r, hex_fp_pow)) goto err; ++j;
+    sm9_fp_inv(r, x);    if (!sm9_bn_equ_hex(r, hex_fp_inv)) goto err; ++j;
 
-	printf("%s() ok\n", __FUNCTION__);
-	return 1;
+    printf("%s() ok\n", __FUNCTION__);
+    return 1;
 err:
-	printf("%s() test %d failed\n", __FUNCTION__, j);
-	error_print();
-	return -1;
+    printf("%s() test %d failed\n", __FUNCTION__, j);
+    error_print();
+    return -1;
 }
 
 #define hex_x		"483f336f119053cba8c0e738cabc2bfdbf047caf7e1aaa92526fa48041ceea2b"
@@ -79,28 +79,28 @@ err:
 #define hex_fn_inv 	"3e3e849c2144c3596d9c79cb1f8ee7c60828787e298b06cc341a9a165191bc5e"
 
 int test_sm9_fn() {
-	sm9_fn_t x;
-	sm9_fn_t y;
-	sm9_fn_t r;
-	int j = 1;
+    sm9_fn_t x;
+    sm9_fn_t y;
+    sm9_fn_t r;
+    int j = 1;
 
-	sm9_bn_from_hex(x, hex_x);
-	sm9_bn_from_hex(y, hex_y);
+    sm9_bn_from_hex(x, hex_x);
+    sm9_bn_from_hex(y, hex_y);
 
-	sm9_fn_t iv = {0, 0, 0, 0, 0, 0, 0, 0}; if (!sm9_fn_is_zero(iv)) goto err; ++j;
-	sm9_fn_add(r, x, y); if (!sm9_bn_equ_hex(r, hex_fn_add)) goto err; ++j;
-	sm9_fn_sub(r, x, y); if (!sm9_bn_equ_hex(r, hex_fn_sub)) goto err; ++j;
-	sm9_fn_sub(r, y, x); if (!sm9_bn_equ_hex(r, hex_fn_nsub)) goto err; ++j;
-	sm9_fn_mul(r, x, y); if (!sm9_bn_equ_hex(r, hex_fn_mul)) goto err; ++j;
-	sm9_fn_pow(r, x, y); if (!sm9_bn_equ_hex(r, hex_fn_pow)) goto err; ++j;
-	sm9_fn_inv(r, x);    if (!sm9_bn_equ_hex(r, hex_fn_inv)) goto err; ++j;
+    sm9_fn_t iv = { 0, 0, 0, 0, 0, 0, 0, 0 }; if (!sm9_fn_is_zero(iv)) goto err; ++j;
+    sm9_fn_add(r, x, y); if (!sm9_bn_equ_hex(r, hex_fn_add)) goto err; ++j;
+    sm9_fn_sub(r, x, y); if (!sm9_bn_equ_hex(r, hex_fn_sub)) goto err; ++j;
+    sm9_fn_sub(r, y, x); if (!sm9_bn_equ_hex(r, hex_fn_nsub)) goto err; ++j;
+    sm9_fn_mul(r, x, y); if (!sm9_bn_equ_hex(r, hex_fn_mul)) goto err; ++j;
+    sm9_fn_pow(r, x, y); if (!sm9_bn_equ_hex(r, hex_fn_pow)) goto err; ++j;
+    sm9_fn_inv(r, x);    if (!sm9_bn_equ_hex(r, hex_fn_inv)) goto err; ++j;
 
-	printf("%s() ok\n", __FUNCTION__);
-	return 1;
+    printf("%s() ok\n", __FUNCTION__);
+    return 1;
 err:
-	printf("%s test %d failed\n", __FUNCTION__, j);
-	error_print();
-	return -1;
+    printf("%s test %d failed\n", __FUNCTION__, j);
+    error_print();
+    return -1;
 }
 
 #define hex_iv2 	"123456789abcdef00fedcba987654321123456789abcdef00fedcba987654321-a39654024e243d806e492768664a2b72d632457dd14f49a9f1fdd299c9bb073c"
@@ -119,41 +119,41 @@ err:
 #define hex_fp2_div2	"0ba84d8497422e09335d0693165f7376839b54b7d1a3e45ec2b6e3b5c275f5cb-af07946a8e30f24c1a9a8db2995b2b9bb4f126f1e0ca7b76a3c2ab66d67576a2"
 
 int test_sm9_fp2() {
-	sm9_fp2_t x;
-	sm9_fp2_t y;
-	sm9_fp2_t r;
-	sm9_fp2_t s;
-	sm9_fp_t k;
-	int j = 1;
+    sm9_fp2_t x;
+    sm9_fp2_t y;
+    sm9_fp2_t r;
+    sm9_fp2_t s;
+    sm9_fp_t k;
+    int j = 1;
 
-	sm9_fp2_copy(x, SM9_P2->Y);
-	sm9_fp2_copy(y, SM9_Ppubs->X);
-	sm9_bn_from_hex(k, hex_iv);
+    sm9_fp2_copy(x, SM9_P2->Y);
+    sm9_fp2_copy(y, SM9_Ppubs->X);
+    sm9_bn_from_hex(k, hex_iv);
 
-	sm9_fp2_t iv2 = {{0xc9bb073c, 0xf1fdd299, 0xd14f49a9, 0xd632457d, 0x664a2b72, 0x6e492768, 0x4e243d80, 0xa3965402},
-	                 {0x87654321, 0x0fedcba9, 0x9abcdef0, 0x12345678, 0x87654321, 0x0fedcba9, 0x9abcdef0, 0x12345678}};
-	sm9_fp2_from_hex(r, hex_iv2); if (!sm9_fp2_equ(r, iv2)) goto err; ++j;
+    sm9_fp2_t iv2 = { {0xc9bb073c, 0xf1fdd299, 0xd14f49a9, 0xd632457d, 0x664a2b72, 0x6e492768, 0x4e243d80, 0xa3965402},
+                     {0x87654321, 0x0fedcba9, 0x9abcdef0, 0x12345678, 0x87654321, 0x0fedcba9, 0x9abcdef0, 0x12345678} };
+    sm9_fp2_from_hex(r, hex_iv2); if (!sm9_fp2_equ(r, iv2)) goto err; ++j;
 
-	sm9_fp2_add(r, x, y);    sm9_fp2_from_hex(s, hex_fp2_add); if (!sm9_fp2_equ(r, s)) goto err; ++j;
-	sm9_fp2_dbl(r, x);       sm9_fp2_from_hex(s, hex_fp2_dbl); if (!sm9_fp2_equ(r, s)) goto err; ++j;
-	sm9_fp2_tri(r, x);       sm9_fp2_from_hex(s, hex_fp2_tri); if (!sm9_fp2_equ(r, s)) goto err; ++j;
-	sm9_fp2_sub(r, x, y);    sm9_fp2_from_hex(s, hex_fp2_sub); if (!sm9_fp2_equ(r, s)) goto err; ++j;
-	sm9_fp2_neg(r, x);       sm9_fp2_from_hex(s, hex_fp2_neg); if (!sm9_fp2_equ(r, s)) goto err; ++j;
-	sm9_fp2_mul(r, x, y);    sm9_fp2_from_hex(s, hex_fp2_mul); if (!sm9_fp2_equ(r, s)) goto err; ++j;
-	sm9_fp2_mul_u(r, x, y);  sm9_fp2_from_hex(s, hex_fp2_mul_u); if (!sm9_fp2_equ(r, s)) goto err; ++j;
-	sm9_fp2_mul_fp(r, x, k); sm9_fp2_from_hex(s, hex_fp2_mul_fp); if (!sm9_fp2_equ(r, s)) goto err; ++j;
-	sm9_fp2_sqr(r, x);       sm9_fp2_from_hex(s, hex_fp2_sqr); if (!sm9_fp2_equ(r, s)) goto err; ++j;
-	sm9_fp2_sqr_u(r, x);     sm9_fp2_from_hex(s, hex_fp2_sqr_u); if (!sm9_fp2_equ(r, s)) goto err; ++j;
-	sm9_fp2_inv(r, x);       sm9_fp2_from_hex(s, hex_fp2_inv); if (!sm9_fp2_equ(r, s)) goto err; ++j;
-	sm9_fp2_div(r, x, y);    sm9_fp2_from_hex(s, hex_fp2_div); if (!sm9_fp2_equ(r, s)) goto err; ++j;
-	sm9_fp2_div2(r, x);      sm9_fp2_from_hex(s, hex_fp2_div2); if (!sm9_fp2_equ(r, s)) goto err; ++j;
+    sm9_fp2_add(r, x, y);    sm9_fp2_from_hex(s, hex_fp2_add); if (!sm9_fp2_equ(r, s)) goto err; ++j;
+    sm9_fp2_dbl(r, x);       sm9_fp2_from_hex(s, hex_fp2_dbl); if (!sm9_fp2_equ(r, s)) goto err; ++j;
+    sm9_fp2_tri(r, x);       sm9_fp2_from_hex(s, hex_fp2_tri); if (!sm9_fp2_equ(r, s)) goto err; ++j;
+    sm9_fp2_sub(r, x, y);    sm9_fp2_from_hex(s, hex_fp2_sub); if (!sm9_fp2_equ(r, s)) goto err; ++j;
+    sm9_fp2_neg(r, x);       sm9_fp2_from_hex(s, hex_fp2_neg); if (!sm9_fp2_equ(r, s)) goto err; ++j;
+    sm9_fp2_mul(r, x, y);    sm9_fp2_from_hex(s, hex_fp2_mul); if (!sm9_fp2_equ(r, s)) goto err; ++j;
+    sm9_fp2_mul_u(r, x, y);  sm9_fp2_from_hex(s, hex_fp2_mul_u); if (!sm9_fp2_equ(r, s)) goto err; ++j;
+    sm9_fp2_mul_fp(r, x, k); sm9_fp2_from_hex(s, hex_fp2_mul_fp); if (!sm9_fp2_equ(r, s)) goto err; ++j;
+    sm9_fp2_sqr(r, x);       sm9_fp2_from_hex(s, hex_fp2_sqr); if (!sm9_fp2_equ(r, s)) goto err; ++j;
+    sm9_fp2_sqr_u(r, x);     sm9_fp2_from_hex(s, hex_fp2_sqr_u); if (!sm9_fp2_equ(r, s)) goto err; ++j;
+    sm9_fp2_inv(r, x);       sm9_fp2_from_hex(s, hex_fp2_inv); if (!sm9_fp2_equ(r, s)) goto err; ++j;
+    sm9_fp2_div(r, x, y);    sm9_fp2_from_hex(s, hex_fp2_div); if (!sm9_fp2_equ(r, s)) goto err; ++j;
+    sm9_fp2_div2(r, x);      sm9_fp2_from_hex(s, hex_fp2_div2); if (!sm9_fp2_equ(r, s)) goto err; ++j;
 
-	printf("%s() ok\n", __FUNCTION__);
-	return 1;
+    printf("%s() ok\n", __FUNCTION__);
+    return 1;
 err:
-	printf("%s test %d failed\n", __FUNCTION__, j);
-	error_print();
-	return -1;
+    printf("%s test %d failed\n", __FUNCTION__, j);
+    error_print();
+    return -1;
 }
 
 #define hex_iv4 \
@@ -198,41 +198,41 @@ err:
 	"3a70e829b83dc311970bc8d3e3e652f88a1ecd49b4672aa18c1c613c9a97d86f"
 
 int test_sm9_fp4() {
-	sm9_fp4_t x;
-	sm9_fp4_t y;
-	sm9_fp4_t r;
-	sm9_fp4_t s;
-	sm9_fp2_t q;
-	sm9_fp_t k;
-	int j = 1;
+    sm9_fp4_t x;
+    sm9_fp4_t y;
+    sm9_fp4_t r;
+    sm9_fp4_t s;
+    sm9_fp2_t q;
+    sm9_fp_t k;
+    int j = 1;
 
-	sm9_fp2_from_hex(x[0], hex_fp2_mul_fp);
-	sm9_fp2_from_hex(x[1], hex_fp2_sqr);
-	sm9_fp2_from_hex(y[0], hex_fp2_add);
-	sm9_fp2_from_hex(y[1], hex_fp2_tri);
-	sm9_bn_from_hex(k, hex_iv);
-	sm9_fp2_copy(q, SM9_Ppubs->X);
+    sm9_fp2_from_hex(x[0], hex_fp2_mul_fp);
+    sm9_fp2_from_hex(x[1], hex_fp2_sqr);
+    sm9_fp2_from_hex(y[0], hex_fp2_add);
+    sm9_fp2_from_hex(y[1], hex_fp2_tri);
+    sm9_bn_from_hex(k, hex_iv);
+    sm9_fp2_copy(q, SM9_Ppubs->X);
 
-	sm9_fp4_t iv4 = {{{0xc9bb073c, 0xf1fdd299, 0xd14f49a9, 0xd632457d, 0x664a2b72, 0x6e492768, 0x4e243d80, 0xa3965402},
-	                  {0x87654321, 0x0fedcba9, 0x9abcdef0, 0x12345678, 0x87654321, 0x0fedcba9, 0x9abcdef0, 0x12345678}},
-			 {{0xc9bb073c, 0xf1fdd299, 0xd14f49a9, 0xd632457d, 0x664a2b72, 0x6e492768, 0x4e243d80, 0xa3965402},
-	                  {0x87654321, 0x0fedcba9, 0x9abcdef0, 0x12345678, 0x87654321, 0x0fedcba9, 0x9abcdef0, 0x12345678}}};
-	sm9_fp4_from_hex(r, hex_iv4); if (!sm9_fp4_equ(r, iv4)) goto err; ++j;
+    sm9_fp4_t iv4 = { {{0xc9bb073c, 0xf1fdd299, 0xd14f49a9, 0xd632457d, 0x664a2b72, 0x6e492768, 0x4e243d80, 0xa3965402},
+                      {0x87654321, 0x0fedcba9, 0x9abcdef0, 0x12345678, 0x87654321, 0x0fedcba9, 0x9abcdef0, 0x12345678}},
+             {{0xc9bb073c, 0xf1fdd299, 0xd14f49a9, 0xd632457d, 0x664a2b72, 0x6e492768, 0x4e243d80, 0xa3965402},
+                      {0x87654321, 0x0fedcba9, 0x9abcdef0, 0x12345678, 0x87654321, 0x0fedcba9, 0x9abcdef0, 0x12345678}} };
+    sm9_fp4_from_hex(r, hex_iv4); if (!sm9_fp4_equ(r, iv4)) goto err; ++j;
 
-	sm9_fp4_mul(r, x, y);        sm9_fp4_from_hex(s, hex_fp4_mul); if (!sm9_fp4_equ(r, s)) goto err; ++j;
-	sm9_fp4_mul_fp(r, x, k);     sm9_fp4_from_hex(s, hex_fp4_mul_fp); if (!sm9_fp4_equ(r, s)) goto err; ++j;
-	sm9_fp4_mul_fp2(r, x, q);    sm9_fp4_from_hex(s, hex_fp4_mul_fp2); if (!sm9_fp4_equ(r, s)) goto err; ++j;
-	sm9_fp4_mul_v(r, x, y);      sm9_fp4_from_hex(s, hex_fp4_mul_v); if (!sm9_fp4_equ(r, s)) goto err; ++j;
-	sm9_fp4_sqr(r, x);           sm9_fp4_from_hex(s, hex_fp4_sqr); if (!sm9_fp4_equ(r, s)) goto err; ++j;
-	sm9_fp4_sqr_v(r, x);         sm9_fp4_from_hex(s, hex_fp4_sqr_v); if (!sm9_fp4_equ(r, s)) goto err; ++j;
-	sm9_fp4_inv(r, x);           sm9_fp4_from_hex(s, hex_fp4_inv); if (!sm9_fp4_equ(r, s)) goto err; ++j;
+    sm9_fp4_mul(r, x, y);        sm9_fp4_from_hex(s, hex_fp4_mul); if (!sm9_fp4_equ(r, s)) goto err; ++j;
+    sm9_fp4_mul_fp(r, x, k);     sm9_fp4_from_hex(s, hex_fp4_mul_fp); if (!sm9_fp4_equ(r, s)) goto err; ++j;
+    sm9_fp4_mul_fp2(r, x, q);    sm9_fp4_from_hex(s, hex_fp4_mul_fp2); if (!sm9_fp4_equ(r, s)) goto err; ++j;
+    sm9_fp4_mul_v(r, x, y);      sm9_fp4_from_hex(s, hex_fp4_mul_v); if (!sm9_fp4_equ(r, s)) goto err; ++j;
+    sm9_fp4_sqr(r, x);           sm9_fp4_from_hex(s, hex_fp4_sqr); if (!sm9_fp4_equ(r, s)) goto err; ++j;
+    sm9_fp4_sqr_v(r, x);         sm9_fp4_from_hex(s, hex_fp4_sqr_v); if (!sm9_fp4_equ(r, s)) goto err; ++j;
+    sm9_fp4_inv(r, x);           sm9_fp4_from_hex(s, hex_fp4_inv); if (!sm9_fp4_equ(r, s)) goto err; ++j;
 
-	printf("%s() ok\n", __FUNCTION__);
-	return 1;
+    printf("%s() ok\n", __FUNCTION__);
+    return 1;
 err:
-	printf("%s test %d failed\n", __FUNCTION__, j);
-	error_print();
-	return -1;
+    printf("%s test %d failed\n", __FUNCTION__, j);
+    error_print();
+    return -1;
 }
 
 #define hex_fp12_mul \
@@ -289,32 +289,32 @@ err:
 	"6b35df1d1153684f1363fce020088a797802e18959df4f006bc5d7f4a632e9f9"
 
 int test_sm9_fp12() {
-	sm9_fp12_t x;
-	sm9_fp12_t y;
-	sm9_fp12_t r;
-	sm9_fp12_t s;
-	sm9_bn_t k;
-	int j = 1;
+    sm9_fp12_t x;
+    sm9_fp12_t y;
+    sm9_fp12_t r;
+    sm9_fp12_t s;
+    sm9_bn_t k;
+    int j = 1;
 
-	sm9_fp4_from_hex(x[0], hex_fp4_mul);
-	sm9_fp4_from_hex(x[1], hex_fp4_mul_fp);
-	sm9_fp4_from_hex(x[2], hex_fp4_mul_fp2);
-	sm9_fp4_from_hex(y[0], hex_fp4_mul_v);
-	sm9_fp4_from_hex(y[1], hex_fp4_sqr);
-	sm9_fp4_from_hex(y[2], hex_fp4_inv);
-	sm9_bn_from_hex(k, hex_iv);
+    sm9_fp4_from_hex(x[0], hex_fp4_mul);
+    sm9_fp4_from_hex(x[1], hex_fp4_mul_fp);
+    sm9_fp4_from_hex(x[2], hex_fp4_mul_fp2);
+    sm9_fp4_from_hex(y[0], hex_fp4_mul_v);
+    sm9_fp4_from_hex(y[1], hex_fp4_sqr);
+    sm9_fp4_from_hex(y[2], hex_fp4_inv);
+    sm9_bn_from_hex(k, hex_iv);
 
-	sm9_fp12_mul(r, x, y); sm9_fp12_from_hex(s, hex_fp12_mul); if (!sm9_fp12_equ(r, s)) goto err; ++j;
-	sm9_fp12_sqr(r, x);    sm9_fp12_from_hex(s, hex_fp12_sqr); if (!sm9_fp12_equ(r, s)) goto err; ++j;
-	sm9_fp12_inv(r, x);    sm9_fp12_from_hex(s, hex_fp12_inv); if (!sm9_fp12_equ(r, s)) goto err; ++j;
-	sm9_fp12_pow(r, x, k); sm9_fp12_from_hex(s, hex_fp12_pow); if (!sm9_fp12_equ(r, s)) goto err; ++j;
+    sm9_fp12_mul(r, x, y); sm9_fp12_from_hex(s, hex_fp12_mul); if (!sm9_fp12_equ(r, s)) goto err; ++j;
+    sm9_fp12_sqr(r, x);    sm9_fp12_from_hex(s, hex_fp12_sqr); if (!sm9_fp12_equ(r, s)) goto err; ++j;
+    sm9_fp12_inv(r, x);    sm9_fp12_from_hex(s, hex_fp12_inv); if (!sm9_fp12_equ(r, s)) goto err; ++j;
+    sm9_fp12_pow(r, x, k); sm9_fp12_from_hex(s, hex_fp12_pow); if (!sm9_fp12_equ(r, s)) goto err; ++j;
 
-	printf("%s() ok\n", __FUNCTION__);
-	return 1;
+    printf("%s() ok\n", __FUNCTION__);
+    return 1;
 err:
-	printf("%s test %d failed\n", __FUNCTION__, j);
-	error_print();
-	return -1;
+    printf("%s test %d failed\n", __FUNCTION__, j);
+    error_print();
+    return -1;
 }
 
 #define hex_point1	"917be49d159184fba140f4dfc5d653464e94f718fe195b226b3f715829e6e768-288578d9505d462867a50acee40ee143b896e72505be10e8ce4c6b0c945b642b"
@@ -327,42 +327,42 @@ err:
 #define hex_point_mul_g	"7cf689748f3714490d7a19eae0e7bfad0e0182498b7bcd8a6998dfd00f59be51-4e2e98d190e9d775e0caa943196bfb066d9c30818b2d768fb5299e7135830a6f"
 
 int test_sm9_point() {
-	SM9_POINT p;
-	SM9_POINT q;
-	SM9_POINT r;
-	SM9_POINT s;
-	sm9_bn_t k;
-	int j = 1;
-	uint8_t buf[65];			
+    SM9_POINT p;
+    SM9_POINT q;
+    SM9_POINT r;
+    SM9_POINT s;
+    sm9_bn_t k;
+    int j = 1;
+    uint8_t buf[65];
 
-	sm9_bn_from_hex(k, hex_iv);
+    sm9_bn_from_hex(k, hex_iv);
 
-	sm9_point_from_hex(&p, hex_point1); if (!sm9_point_is_on_curve(&p)) goto err; ++j;
-	sm9_point_from_hex(&q, hex_point2); if (!sm9_point_is_on_curve(&q)) goto err; ++j;
-	sm9_point_dbl(&r, &p);     sm9_point_from_hex(&s, hex_point_dbl); if (!sm9_point_equ(&r, &s)) goto err; ++j;
-	sm9_point_add(&r, &p, &q); sm9_point_from_hex(&s, hex_point_add); if (!sm9_point_equ(&r, &s)) goto err; ++j;
-	sm9_point_neg(&r, &p);     sm9_point_from_hex(&s, hex_point_neg); if (!sm9_point_equ(&r, &s)) goto err; ++j;
-	sm9_point_sub(&r, &p, &q); sm9_point_from_hex(&s, hex_point_sub); if (!sm9_point_equ(&r, &s)) goto err; ++j;
-	sm9_point_mul(&r, k, &p);  sm9_point_from_hex(&s, hex_point_mul); if (!sm9_point_equ(&r, &s)) goto err; ++j;
-	sm9_point_mul_generator(&r, k); sm9_point_from_hex(&s, hex_point_mul_g); if (!sm9_point_equ(&r, &s)) goto err; ++j;
+    sm9_point_from_hex(&p, hex_point1); if (!sm9_point_is_on_curve(&p)) goto err; ++j;
+    sm9_point_from_hex(&q, hex_point2); if (!sm9_point_is_on_curve(&q)) goto err; ++j;
+    sm9_point_dbl(&r, &p);     sm9_point_from_hex(&s, hex_point_dbl); if (!sm9_point_equ(&r, &s)) goto err; ++j;
+    sm9_point_add(&r, &p, &q); sm9_point_from_hex(&s, hex_point_add); if (!sm9_point_equ(&r, &s)) goto err; ++j;
+    sm9_point_neg(&r, &p);     sm9_point_from_hex(&s, hex_point_neg); if (!sm9_point_equ(&r, &s)) goto err; ++j;
+    sm9_point_sub(&r, &p, &q); sm9_point_from_hex(&s, hex_point_sub); if (!sm9_point_equ(&r, &s)) goto err; ++j;
+    sm9_point_mul(&r, k, &p);  sm9_point_from_hex(&s, hex_point_mul); if (!sm9_point_equ(&r, &s)) goto err; ++j;
+    sm9_point_mul_generator(&r, k); sm9_point_from_hex(&s, hex_point_mul_g); if (!sm9_point_equ(&r, &s)) goto err; ++j;
 
-	sm9_point_to_uncompressed_octets(&p, buf);
-	sm9_point_from_uncompressed_octets(&q, buf);
-	if (!sm9_point_equ(&p, &q)) {
-		error_print();
-		return -1;
-	}
-
-
+    sm9_point_to_uncompressed_octets(&p, buf);
+    sm9_point_from_uncompressed_octets(&q, buf);
+    if (!sm9_point_equ(&p, &q)) {
+        error_print();
+        return -1;
+    }
 
 
 
-	printf("%s() ok\n", __FUNCTION__);
-	return 1;
+
+
+    printf("%s() ok\n", __FUNCTION__);
+    return 1;
 err:
-	printf("%s test %d failed\n", __FUNCTION__, j);
-	error_print();
-	return -1;
+    printf("%s test %d failed\n", __FUNCTION__, j);
+    error_print();
+    return -1;
 }
 
 #define hex_tpoint1 \
@@ -407,31 +407,31 @@ err:
 	"18a22e02b7d395a49f0646a79438e79cd37c32f163fe8923c13d56bab668e8a7"
 
 int test_sm9_twist_point() {
-	SM9_TWIST_POINT p;
-	SM9_TWIST_POINT q;
-	SM9_TWIST_POINT r;
-	SM9_TWIST_POINT s;
-	sm9_bn_t k;
-	int j = 1;
+    SM9_TWIST_POINT p;
+    SM9_TWIST_POINT q;
+    SM9_TWIST_POINT r;
+    SM9_TWIST_POINT s;
+    sm9_bn_t k;
+    int j = 1;
 
-	sm9_bn_from_hex(k, hex_iv);
+    sm9_bn_from_hex(k, hex_iv);
 
-	sm9_twist_point_from_hex(&p, hex_tpoint1); if (!sm9_twist_point_is_on_curve(&p)) goto err; ++j;
-	sm9_twist_point_from_hex(&q, hex_tpoint2); if (!sm9_twist_point_is_on_curve(&q)) goto err; ++j;
-	sm9_twist_point_neg(&r, &p);     sm9_twist_point_from_hex(&s, hex_tpoint_neg); if (!sm9_twist_point_equ(&r, &s)) goto err; ++j;
-	sm9_twist_point_dbl(&r, &p);     sm9_twist_point_from_hex(&s, hex_tpoint_dbl); if (!sm9_twist_point_equ(&r, &s)) goto err; ++j;
-	sm9_twist_point_add(&r, &p, &q); sm9_twist_point_from_hex(&s, hex_tpoint_add); if (!sm9_twist_point_equ(&r, &s)) goto err; ++j;
-	sm9_twist_point_add_full(&r, &p, &q); if (!sm9_twist_point_equ(&r, &s)) goto err; ++j;
-	sm9_twist_point_sub(&r, &p, &q); sm9_twist_point_from_hex(&s, hex_tpoint_sub); if (!sm9_twist_point_equ(&r, &s)) goto err; ++j;
-	sm9_twist_point_mul(&r, k, &p);  sm9_twist_point_from_hex(&s, hex_tpoint_mul); if (!sm9_twist_point_equ(&r, &s)) goto err; ++j;
-	sm9_twist_point_mul_generator(&r, k);    sm9_twist_point_from_hex(&s, hex_tpoint_mulg); if (!sm9_twist_point_equ(&r, &s)) goto err; ++j;
+    sm9_twist_point_from_hex(&p, hex_tpoint1); if (!sm9_twist_point_is_on_curve(&p)) goto err; ++j;
+    sm9_twist_point_from_hex(&q, hex_tpoint2); if (!sm9_twist_point_is_on_curve(&q)) goto err; ++j;
+    sm9_twist_point_neg(&r, &p);     sm9_twist_point_from_hex(&s, hex_tpoint_neg); if (!sm9_twist_point_equ(&r, &s)) goto err; ++j;
+    sm9_twist_point_dbl(&r, &p);     sm9_twist_point_from_hex(&s, hex_tpoint_dbl); if (!sm9_twist_point_equ(&r, &s)) goto err; ++j;
+    sm9_twist_point_add(&r, &p, &q); sm9_twist_point_from_hex(&s, hex_tpoint_add); if (!sm9_twist_point_equ(&r, &s)) goto err; ++j;
+    sm9_twist_point_add_full(&r, &p, &q); if (!sm9_twist_point_equ(&r, &s)) goto err; ++j;
+    sm9_twist_point_sub(&r, &p, &q); sm9_twist_point_from_hex(&s, hex_tpoint_sub); if (!sm9_twist_point_equ(&r, &s)) goto err; ++j;
+    sm9_twist_point_mul(&r, k, &p);  sm9_twist_point_from_hex(&s, hex_tpoint_mul); if (!sm9_twist_point_equ(&r, &s)) goto err; ++j;
+    sm9_twist_point_mul_generator(&r, k);    sm9_twist_point_from_hex(&s, hex_tpoint_mulg); if (!sm9_twist_point_equ(&r, &s)) goto err; ++j;
 
-	printf("%s() ok\n", __FUNCTION__);
-	return 1;
+    printf("%s() ok\n", __FUNCTION__);
+    return 1;
 err:
-	printf("%s test %d failed\n", __FUNCTION__, j);
-	error_print();
-	return -1;
+    printf("%s test %d failed\n", __FUNCTION__, j);
+    error_print();
+    return -1;
 }
 
 #define hex_pairing1 \
@@ -492,62 +492,63 @@ err:
 
 
 int test_sm9_pairing() {
-	SM9_TWIST_POINT p;
-	SM9_POINT q;
-	sm9_fp12_t r;
-	sm9_fp12_t s;
-	sm9_bn_t k;
-	int j = 1;
+    SM9_TWIST_POINT p;
+    SM9_POINT q;
+    sm9_fp12_t r;
+    sm9_fp12_t s;
+    sm9_bn_t k;
+    int j = 1;
 
-	sm9_pairing(r, SM9_Ppubs, SM9_P1); sm9_fp12_from_hex(s, hex_pairing1); if (!sm9_fp12_equ(r, s)) goto err; ++j;
+    sm9_pairing(r, SM9_Ppubs, SM9_P1); sm9_fp12_from_hex(s, hex_pairing1); if (!sm9_fp12_equ(r, s)) goto err; ++j;
 
-	sm9_twist_point_from_hex(&p, hex_deB); sm9_point_from_hex(&q, hex_RA);
-	sm9_pairing(r, &p, &q); sm9_fp12_from_hex(s, hex_pairing2); if (!sm9_fp12_equ(r, s)) goto err; ++j;
+    sm9_twist_point_from_hex(&p, hex_deB); sm9_point_from_hex(&q, hex_RA);
+    sm9_pairing(r, &p, &q); sm9_fp12_from_hex(s, hex_pairing2); if (!sm9_fp12_equ(r, s)) goto err; ++j;
 
-	sm9_bn_from_hex(k, rB); sm9_point_from_hex(&q, hex_Ppube);
-	sm9_pairing(r, SM9_P2, &q); sm9_fp12_pow(r, r, k); sm9_fp12_from_hex(s, hex_pairing3); if (!sm9_fp12_equ(r, s)) goto err; ++j;
+    sm9_bn_from_hex(k, rB); sm9_point_from_hex(&q, hex_Ppube);
+    sm9_pairing(r, SM9_P2, &q); sm9_fp12_pow(r, r, k); sm9_fp12_from_hex(s, hex_pairing3); if (!sm9_fp12_equ(r, s)) goto err; ++j;
 
-	printf("%s() ok\n", __FUNCTION__);
-	return 1;
+    printf("%s() ok\n", __FUNCTION__);
+    return 1;
 err:
-	printf("%s test %d failed\n", __FUNCTION__, j);
-	error_print();
-	return -1;
+    printf("%s test %d failed\n", __FUNCTION__, j);
+    error_print();
+    return -1;
 }
 
 #define hex_ks		"000130E78459D78545CB54C587E02CF480CE0B66340F319F348A1D5B1F2DC5F4"
 #define hex_ds		"A5702F05CF1315305E2D6EB64B0DEB923DB1A0BCF0CAFF90523AC8754AA69820-78559A844411F9825C109F5EE3F52D720DD01785392A727BB1556952B2B013D3"
 
 int test_sm9_sign() {
-	SM9_SIGN_CTX ctx;
-	SM9_SIGN_KEY key;
-	SM9_SIGN_MASTER_KEY mpk;
-	SM9_POINT ds;
-	uint8_t sig[1000] = {0};
-	size_t siglen = 0;
-	int j = 1;
+    SM9_SIGN_CTX ctx;
+    SM9_SIGN_KEY key;
+    SM9_SIGN_MASTER_KEY mpk;
+    SM9_POINT ds;
+    uint8_t sig[1000] = { 0 };
+    size_t siglen = 0;
+    int j = 1;
 
-	uint8_t data[20] = {0x43, 0x68, 0x69, 0x6E, 0x65, 0x73, 0x65, 0x20, 0x49, 0x42, 0x53, 0x20, 0x73, 0x74, 0x61, 0x6E, 0x64, 0x61, 0x72, 0x64};
-	uint8_t IDA[5] = {0x41, 0x6C, 0x69, 0x63, 0x65};
+    uint8_t data[20] = { 0x43, 0x68, 0x69, 0x6E, 0x65, 0x73, 0x65, 0x20, 0x49, 0x42, 0x53, 0x20, 0x73, 0x74, 0x61, 0x6E, 0x64, 0x61, 0x72, 0x64 };
+    uint8_t IDA[5] = { 0x41, 0x6C, 0x69, 0x63, 0x65 };
 
-	sm9_bn_from_hex(mpk.ks, hex_ks); sm9_twist_point_mul_generator(&(mpk.Ppubs), mpk.ks);
-	if (sm9_sign_master_key_extract_key(&mpk, (char *)IDA, sizeof(IDA), &key) < 0) goto err; ++j;
-	sm9_point_from_hex(&ds, hex_ds); if (!sm9_point_equ(&(key.ds), &ds)) goto err; ++j;
+    sm9_bn_from_hex(mpk.ks, hex_ks); sm9_twist_point_mul_generator(&(mpk.Ppubs), mpk.ks);
+    if (sm9_sign_master_key_extract_key(&mpk, (char*)IDA, sizeof(IDA), &key) < 0) goto err; ++j;
+    sm9_point_from_hex(&ds, hex_ds); if (!sm9_point_equ(&(key.ds), &ds)) goto err; ++j;
 
-	sm9_sign_init(&ctx);
-	sm9_sign_update(&ctx, data, sizeof(data));
-	if (sm9_sign_finish(&ctx, &key, sig, &siglen) < 0) goto err; ++j;
+    sm9_sign_init(&ctx);
+    sm9_sign_update(&ctx, data, sizeof(data));
+    if (sm9_sign_finish(&ctx, &key, sig, &siglen) < 0)
+        goto err;
+    ++j;
+    sm9_verify_init(&ctx);
+    sm9_verify_update(&ctx, data, sizeof(data));
+    if (sm9_verify_finish(&ctx, sig, siglen, &mpk, (char*)IDA, sizeof(IDA)) < 0) goto err; ++j;
 
-	sm9_verify_init(&ctx);
-	sm9_verify_update(&ctx, data, sizeof(data));
-	if (sm9_verify_finish(&ctx, sig, siglen, &mpk, (char *)IDA, sizeof(IDA)) < 0) goto err; ++j;
-
-	printf("%s() ok\n", __FUNCTION__);
-	return 1;
+    printf("%s() ok\n", __FUNCTION__);
+    return 1;
 err:
-	printf("%s test %d failed\n", __FUNCTION__, j);
-	error_print();
-	return -1;
+    printf("%s test %d failed\n", __FUNCTION__, j);
+    error_print();
+    return -1;
 }
 
 #define hex_ke		"0001EDEE3778F441F8DEA3D9FA0ACC4E07EE36C93F9A08618AF4AD85CEDE1C22"
@@ -560,68 +561,68 @@ err:
 
 int test_sm9_ciphertext()
 {
-	SM9_POINT C1;
-	uint8_t c2[SM9_MAX_PLAINTEXT_SIZE];
-	uint8_t c3[SM3_HMAC_SIZE];
-	uint8_t buf[1024];
-	uint8_t *p = buf;
-	size_t len = 0;
+    SM9_POINT C1;
+    uint8_t c2[SM9_MAX_PLAINTEXT_SIZE];
+    uint8_t c3[SM3_HMAC_SIZE];
+    uint8_t buf[1024];
+    uint8_t* p = buf;
+    size_t len = 0;
 
-	sm9_point_copy(&C1, SM9_P1);
-	if (sm9_ciphertext_to_der(&C1, c2, sizeof(c2), c3, &p, &len) != 1) {
-		error_print();
-		return -1;
-	}
-	//printf("SM9_MAX_CIPHERTEXT_SIZE %zu\n", len);
-	return 1;
+    sm9_point_copy(&C1, SM9_P1);
+    if (sm9_ciphertext_to_der(&C1, c2, sizeof(c2), c3, &p, &len) != 1) {
+        error_print();
+        return -1;
+    }
+    //printf("SM9_MAX_CIPHERTEXT_SIZE %zu\n", len);
+    return 1;
 }
 
 
 int test_sm9_encrypt() {
-	SM9_ENC_MASTER_KEY msk;
-	SM9_ENC_KEY key;
-	SM9_TWIST_POINT de;
-	uint8_t out[1000] = {0};
-	size_t outlen = 0;
-	int j = 1;
+    SM9_ENC_MASTER_KEY msk;
+    SM9_ENC_KEY key;
+    SM9_TWIST_POINT de;
+    uint8_t out[1000] = { 0 };
+    size_t outlen = 0;
+    int j = 1;
 
-	uint8_t data[20] = {0x43, 0x68, 0x69, 0x6E, 0x65, 0x73, 0x65, 0x20, 0x49, 0x42, 0x53, 0x20, 0x73, 0x74, 0x61, 0x6E, 0x64, 0x61, 0x72, 0x64};
-	uint8_t dec[20] = {0};
-	size_t declen = 20;
-	uint8_t IDB[3] = {0x42, 0x6F, 0x62};
+    uint8_t data[20] = { 0x43, 0x68, 0x69, 0x6E, 0x65, 0x73, 0x65, 0x20, 0x49, 0x42, 0x53, 0x20, 0x73, 0x74, 0x61, 0x6E, 0x64, 0x61, 0x72, 0x64 };
+    uint8_t dec[20] = { 0 };
+    size_t declen = 20;
+    uint8_t IDB[3] = { 0x42, 0x6F, 0x62 };
 
-	sm9_bn_from_hex(msk.ke, hex_ke); sm9_point_mul_generator(&(msk.Ppube), msk.ke);
-	if (sm9_enc_master_key_extract_key(&msk, (char *)IDB, sizeof(IDB), &key) < 0) goto err; ++j;
-	sm9_twist_point_from_hex(&de, hex_de); if (!sm9_twist_point_equ(&(key.de), &de)) goto err; ++j;
+    sm9_bn_from_hex(msk.ke, hex_ke); sm9_point_mul_generator(&(msk.Ppube), msk.ke);
+    if (sm9_enc_master_key_extract_key(&msk, (char*)IDB, sizeof(IDB), &key) < 0) goto err; ++j;
+    sm9_twist_point_from_hex(&de, hex_de); if (!sm9_twist_point_equ(&(key.de), &de)) goto err; ++j;
 
-	if (sm9_encrypt(&msk, (char *)IDB, sizeof(IDB), data, sizeof(data), out, &outlen) < 0) goto err; ++j;
-	if (sm9_decrypt(&key, (char *)IDB, sizeof(IDB), out, outlen, dec, &declen) < 0) goto err; ++j;
-	if (memcmp(data, dec, sizeof(data)) != 0) goto err; ++j;
+    if (sm9_encrypt(&msk, (char*)IDB, sizeof(IDB), data, sizeof(data), out, &outlen) < 0) goto err; ++j;
+    if (sm9_decrypt(&key, (char*)IDB, sizeof(IDB), out, outlen, dec, &declen) < 0) goto err; ++j;
+    if (memcmp(data, dec, sizeof(data)) != 0) goto err; ++j;
 
-	printf("%s() ok\n", __FUNCTION__);
-	return 1;
+    printf("%s() ok\n", __FUNCTION__);
+    return 1;
 err:
-	printf("%s test %d failed\n", __FUNCTION__, j);
-	error_print();
-	return -1;
+    printf("%s test %d failed\n", __FUNCTION__, j);
+    error_print();
+    return -1;
 }
 
 int main(void) {
-	if (test_sm9_fp() != 1) goto err;
-	if (test_sm9_fn() != 1) goto err;
-	if (test_sm9_fp2() != 1) goto err;
-	if (test_sm9_fp4() != 1) goto err;
-	if (test_sm9_fp12() != 1) goto err;
-	if (test_sm9_point() != 1) goto err;
-	if (test_sm9_twist_point() != 1) goto err;
-	if (test_sm9_pairing() != 1) goto err;
-	if (test_sm9_sign() != 1) goto err;
-	if (test_sm9_ciphertext() != 1) goto err;
-	if (test_sm9_encrypt() != 1) goto err;
+    if (test_sm9_fp() != 1) goto err;
+    if (test_sm9_fn() != 1) goto err;
+    if (test_sm9_fp2() != 1) goto err;
+    if (test_sm9_fp4() != 1) goto err;
+    if (test_sm9_fp12() != 1) goto err;
+    if (test_sm9_point() != 1) goto err;
+    if (test_sm9_twist_point() != 1) goto err;
+    if (test_sm9_pairing() != 1) goto err;
+    if (test_sm9_sign() != 1) goto err;
+    if (test_sm9_ciphertext() != 1) goto err;
+    if (test_sm9_encrypt() != 1) goto err;
 
-	printf("%s all tests passed\n", __FILE__);
-	return 0;
+    printf("%s all tests passed\n", __FILE__);
+    return 0;
 err:
-	error_print();
-	return -1;
+    error_print();
+    return -1;
 }
