@@ -118,11 +118,3 @@ end:
 	if (sigfile && sigfp) fclose(sigfp);
 	return ret;
 }
-
-
-
-
-
-
-
-

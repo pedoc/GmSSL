@@ -91,7 +91,7 @@ add_library(
     src/win_support.c
 )
 
-target_link_libraries(gmssl dl)
+#target_link_libraries(gmssl dl)
 SET_TARGET_PROPERTIES(gmssl PROPERTIES VERSION 3.0 SOVERSION 3)
 
 add_library(sdf_dummy SHARED src/sdf/sdf_dummy.c)
@@ -193,7 +193,11 @@ add_test(NAME cms		COMMAND cmstest)
 
 add_executable(sm4test tests/sm4test.c)
 target_link_libraries (sm4test LINK_PUBLIC gmssl)
-add_executable(sm3test tests/sm3test.c)
+add_executable(
+    sm3test
+    src/hex.c
+    tests/sm3test.c
+)
 target_link_libraries (sm3test LINK_PUBLIC gmssl)
 add_executable(sm2test tests/sm2test.c)
 target_link_libraries (sm2test LINK_PUBLIC gmssl)

@@ -10,8 +10,6 @@
 #include  <string.h>
 #include  <time.h>
 
-//#include <system_error>
-
 #define EXPORT  __declspec( dllimport )
 
 #define RTLD_LAZY -1
@@ -59,5 +57,7 @@ static  const char* abmon[12] = {
 static  const char* am_pm[2] = {
      "AM", "PM"
 };
+#else
+#define EXPORT 
 #endif
 #endif

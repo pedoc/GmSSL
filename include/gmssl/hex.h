@@ -17,14 +17,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include <gmssl/win_support.h>
 
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-int hex_to_bytes(const char *in, size_t inlen, uint8_t *out, size_t *outlen);
-
+EXPORT int hex_to_bytes(const char *in, size_t inlen, uint8_t *out, size_t *outlen);
 
 #ifdef __cplusplus
 }
